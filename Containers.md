@@ -15,5 +15,12 @@ Moved to VMs where multiple apps could then run on one server.
 - Lightweight, standalone and portable.
 - Wrapped in kernel groups and run on the kernel of the host.
 - Container file must be compatible with host OS. If host is linux then container must be linux based.
+- Emulation achieved by container engine.
+- Great fit for microservice architecture due to the small resource nature.
 
 - A VM might be the better option for an added layer of security. Because the containers share the host kernel, if the host is compromised it could compromise the containers as well.
+
+## Microservices architecture
+- Each service is a seperate manageable unit.
+- More complex, however, provides far greater scalability, flexibility and maintainability.
+- Monolithic apps beacame too large and a redeployment is needed of the entire app even if a minor thing is changed this leads to increasing amounts of application down-time.
