@@ -1,4 +1,4 @@
 # AzureKubernetesService
 A repository for DevOps in azure
 
-Completion: 7/172 (4%)
+Completion: 15/172 (8.7%)
