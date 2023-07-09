@@ -147,5 +147,39 @@ DaemonSet that works with the node lifecycle controller to:
 - Get node's hostname and net address.
 - Verify health of a node.
 
+## Config Map (CM)
+An object that lets you store configurations for other objects to use. A config map is essentially a configuration object.
+
 ## Core dns
 - Authoritative DNS server. It levergaes plugins which are modular components that provide functions.
+- When a client requests to connect to a service in the kluster. It is coredns that resolves that service name to the correct ip address in the cluster.
+
+kubectl logs --namespace kube-system -l k8s-app=kube-dns
+k run dnsutils --image registry.k8s.io/e2e-test-images/jesse-dnsutils:1.3 -- sleep infinity
+k exec -it dnsutils -- bash
+nslookup flask-app-service
+nslookup microsoft.com
+
+-- Get config map.
+k get cm -n kube-system
+
+-- Get description of core dns config maps.
+k describe cm coredns -n kube-system
+-- Second one does not have Reconcile label.
+k describe cm coredns-custom -n kube-system
+
+-- Restart dns.
+k delete pod -n kube-system --selector k8s-app=kube-dns
+
+## Coredns-autoscaler
+Tool installed by AKS as a deployment that automatically adjusts the number of coredns replicas.
+- Behaviour controlled bty coredns-autoscaler CM
+
+-- View the CM of coredns autoscaler
+k describe cm -n kube-system coredns-autoscaler
+k get deploy coredns -n kube-system
+k get pod -n kube-system | grep coredns
+
+-- Edit coredns CM
+k edit cm -n kube-system coredns-autoscaler
+k get deploy coredns -n kube-system
